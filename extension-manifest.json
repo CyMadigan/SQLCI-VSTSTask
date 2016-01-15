@@ -1,0 +1,60 @@
+{
+    "manifestVersion": 1,
+    "id": "redgateSqlCi",
+    "name": "Redgate SQL CI",
+    "version": "1.0.11",
+    "publisher": "redgatesoftware",
+    "description": "Continuous integration for databases. Build, test, synchronize and publish your SQL Server databases using Redgate SQL CI.",
+    "public": true,
+    "icons": {
+        "default": "images/redgatesqlci-logo.png"
+    },
+    "tags": [
+        "SQL",
+        "ci",
+        "database",
+        "Redgate",
+        "Red Gate",
+        "sqlci",
+        "deployment"
+    ],
+    "files": [
+        {   "path": "TheTask" },
+        {   
+		    "path": "images",
+			"addressable": true
+		}
+    ],
+    "categories": [
+		"Build and release"
+    ],
+    "content": {
+        "details": {
+            "path": "overview.md"   
+        }
+    },
+    "screenshots": [          
+    ],
+    "links": {
+        "home":       { "uri": "https://www.red-gate.com/" },
+        "getstarted": { "uri": "https://www.red-gate.com/dlmas/using-vsts-extension" },
+        "learn":      { "uri": "https://documentation.red-gate.com/display/DAS/DLM+Automation+Suite" },
+		"support":    { "uri": "https://redgatesupport.zendesk.com/hc/en-us" }
+    },
+    "branding": {
+        "color": "rgb(204, 0, 0)",
+        "theme": "dark"
+    },
+    "contributions": [
+        {
+            "id": "SQLCITask",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "TheTask"
+            }
+        }
+    ]
+}

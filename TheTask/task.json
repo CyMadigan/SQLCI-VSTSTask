@@ -1,0 +1,306 @@
+﻿{
+    "id": "7654CF4A-2FA1-4226-A21B-6EE07F2BA112",
+    "name": "RedgateSqlCiBuild",
+    "friendlyName": "Redgate SQL CI",
+    "description": "Build, test, sync and publish a DB with SQL CI",
+    "helpMarkDown": "[More Information](https://documentation.red-gate.com/display/SAP1/SQL+Automation+Pack+documentation)",
+    "category": "Build",
+    "visibility": [
+        "Build", "Release"
+    ],
+    "author": "Redgate Software",
+    "version": {
+        "Major": 1,
+        "Minor": 0,
+        "Patch": 11
+    },
+    "demands": [
+
+    ],
+    "minimumAgentVersion": "1.83.0",
+    "groups": [
+		{
+            "name":"nuGetPackageVersionGroup",
+            "displayName":"NuGet Package Version",
+            "isExpanded":false
+        }
+    ],
+    "inputs": [
+		{	
+            "name": "operation",
+            "type": "pickList",
+            "label": "Operation",
+            "defaultValue": "Build",
+            "required": true,
+            "options": {
+                "Build": "Build a database package",
+                "Test":  "Test a database package",
+                "Publish":  "Publish a database package",
+                "Sync":  "Sync a database package",
+            },
+            "helpMarkDown": "Specify the SQL CI operation you want to perform. Build, test, publish or sync."
+        },
+		
+        {
+            "name": "dbFolder",
+            "type": "pickList",
+            "label": "Database Folder",
+            "defaultValue": "SubFolder",
+            "required": true,
+            "options": {
+                "RootFolder": "Database scripts folder is in VCS root",
+                "SubFolder": "Database scripts folder is a sub-folder of the VCS root"
+            },
+            "helpMarkDown": "Specify the source-controlled database you want to build.",
+            "visibleRule": "operation = Build"
+        },
+        {
+            "name": "subFolderPath",
+            "type": "filePath",
+            "label": "Subfolder Path",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Enter a path relative to your build VCS root.",
+            "visibleRule": "dbFolder = SubFolder"
+        },
+        {
+            "name": "packageName",
+            "type": "string",
+            "label": "Output Package Name",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "An ID for the package you want to build.",
+            "visibleRule": "operation = Build"
+        },
+		
+		
+		
+		{
+            "name": "packageId",
+            "type": "string",
+            "label": "Package ID",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "The ID of the package you want to test.",
+            "visibleRule": "operation = Test"
+        },
+        {
+            "name": "tempServerType",
+            "type": "pickList",
+            "label": "Temporary Server Type",
+            "defaultValue": "localDB",
+            "required": true,
+            "options": {
+                "localDB": "SQL LocalDB (recommended)",
+                "sqlServer": "SQL Server"
+            },
+            "visibleRule": "operation = Test"
+        },
+        {
+            "name": "tempServerName",
+            "type": "string",
+            "label": "Server",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "tempServerType = sqlServer"
+        },
+        {
+            "name": "tempDatabaseName",
+            "type": "string",
+            "label": "Database",
+            "defaultValue": "",
+            "required": false,
+            "visibleRule": "tempServerType = sqlServer",
+            "helpMarkDown": "If you leave this blank, SQL CI will create a new database with a unique name, and delete it after the tests have run. If you want to use an Azure SQL Database as a test database, you must create a database and give the name here. SQL CI cannot create a temporary database in Azure SQL Database."
+        },
+        {
+            "name": "authMethod",
+            "type": "pickList",
+            "label": "Authentication Method",
+            "defaultValue": "sqlServerAuth",
+            "required": true,
+            "options": {
+                "sqlServerAuth": "SQL Server authentication",
+                "windowsAuth": "Windows authentication"
+            },
+            "visibleRule": "tempServerType = sqlServer"
+        },
+        {
+            "name": "username",
+            "type": "string",
+            "label": "Username",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "authMethod = sqlServerAuth"
+        },
+        {
+            "name": "password",
+            "type": "string",
+            "label": "Password",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "authMethod = sqlServerAuth",
+            "helpMarkDown": "Password should reference a secret variable defined on the Variables tab."
+        },
+        {
+            "name": "useSqlDataGenerator",
+            "type": "boolean",
+            "label": "Use Redgate Sql Data Generator",
+            "defaultValue": "false",
+            "required": false,
+            "visibleRule": "operation = Test",
+            "helpMarkDown": "SQL Data Generator is not available for hosted build-agents."
+        },
+        {
+            "name": "autoSqlDataGenerator",
+            "type": "boolean",
+            "label": "Automatically generate data",
+            "defaultValue": "true",
+            "required": false,
+            "visibleRule": "useSqlDataGenerator = true",
+            "helpMarkDown": "If this is checked, SQL Data Generator will automatically generate 1000 rows of test data per table. Data is generated intelligently based on a column's datatype, name and any keys."
+        },
+        {
+            "name": "sqlDataGeneratorFile",
+            "type": "filePath",
+            "label": "SQL Data Generator file",
+            "defaultValue": "",
+            "required": false,
+            "visibleRule": "autoSqlDataGenerator = false",
+            "helpMarkDown": "Use test data created by SQL Data Generator. If you've already created a SQL Data Generator project file, include the file name. If you don't have an existing project file, don't specify a value and data will be genereated automatically."
+        },
+        {
+            "name": "runOnly",
+            "type": "string",
+            "label": "Run only specified class/test",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "To run a specific test class or test instead of every test, enter the test class and test name.",
+            "visibleRule": "autoSqlDataGenerator = false"
+        },
+		
+		
+		
+		{
+            "name": "packageIdPublish",
+            "type": "string",
+            "label": "Package ID",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "The ID of the package.",
+            "visibleRule": "operation = Publish"
+        },
+        {
+            "name": "nugetFeedUrl",
+            "type": "string",
+            "label": "NuGet feed URL",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "The fully-qualified URL for your NuGet feed.",
+            "visibleRule": "operation = Publish"
+        },
+        {
+            "name": "nugetFeedApiKey",
+            "type": "string",
+            "label": "NuGet feed API key",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "If you're using a private NuGet feed, enter an API key for the NuGet feed.",
+            "visibleRule": "operation = Publish"
+        },
+		
+		
+		
+		
+        {
+            "name": "packageIdSync",
+            "type": "string",
+            "label": "Package ID",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "The ID of the package you want to use to update the target database. It must be a package built by SQL CI.",
+            "visibleRule": "operation = Sync"
+        },
+        {
+            "name": "targetServerName",
+            "type": "string",
+            "label": "Server",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "operation = Sync"
+        },
+        {
+            "name": "targetDatabaseName",
+            "type": "string",
+            "label": "Database",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "operation = Sync"
+        },
+        {
+            "name": "authMethodSync",
+            "type": "pickList",
+            "label": "Authentication Method",
+            "defaultValue": "sqlServerAuth",
+            "required": true,
+            "options": {
+                "sqlServerAuth": "SQL Server authentication",
+                "windowsAuth": "Windows authentication"
+            },
+            "visibleRule": "operation = Sync"
+        },
+        {
+            "name": "usernameSync",
+            "type": "string",
+            "label": "Username",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "authMethodSync = sqlServerAuth"
+        },
+        {
+            "name": "passwordSync",
+            "type": "string",
+            "label": "Password",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "authMethodSync = sqlServerAuth",
+            "helpMarkDown": "Password should reference a secret variable defined on the Variables tab."
+        },
+		
+		
+        {
+            "name": "additionalParams",
+            "type": "string",
+            "label": "Additional SQL Compare Parameters",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Specify SQL Compare switches to run on the command line. Leave this blank to use the default options."
+        },
+        {
+            "name": "nugetPackageVersion",
+            "type": "string",
+            "label": "NuGet Package Version",
+            "defaultValue": "1.0",
+            "required": true,
+            "helpMarkDown": "The build number in the NuGet package name. This should be consistent across all build tasks. For example: 2.1.",
+			"groupName": "nuGetPackageVersionGroup"
+        },
+        {
+            "name": "nugetPackageVersionUseBuildNumber",
+            "type": "boolean",
+            "label": "Use build number",
+            "defaultValue": "false",
+            "required": false,
+            "helpMarkDown": "In most scenarios, and if you are using VSTS Release, you should use leave this unchecked. Then the package version will be always set to the version specified in the above option, regardless of build number. But if you are publishing to a NuGet stream, you will probably want to check this. Then, the package's version will be built from the version specified above and the current build number. This setting should be consistent across all build steps.",
+			"groupName": "nuGetPackageVersionGroup"
+        }
+    ],
+    "instanceNameFormat": "$(operation) $(packageName)$(packageId)$(packageIdPublish)$(packageIdSync)",
+    "execution": {
+        "PowerShell": {
+            "target": "$(currentDirectory)\\SqlCiTask.ps1",
+            "argumentFormat": "",
+            "workingDirectory": "$(currentDirectory)"
+        }
+    }
+}

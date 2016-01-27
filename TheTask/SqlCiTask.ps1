@@ -50,8 +50,7 @@ function RunSqlCi($sqlCiArgs){
 		$sqlCiExeFile = Get-ChildItem -Path .\ -Filter sqlCI.exe -Recurse
     
 		if(!($sqlCiExeFile)) {
-			Throw [System.IO.FileNotFoundException] "SQL CI executable not found at $sqlCiExePath"
-		}
+			Throw [System.IO.FileNotFoundException] "SQL CI executable not found at $sqlCiExePath" }
 
 		[string]$sqlCiExePath = $sqlCiExeFile.FullName
 	}
@@ -86,6 +85,12 @@ function RunSqlCi($sqlCiArgs){
     
     Write-Host $process.StandardOutput.ReadToEnd()
     Write-Host $process.StandardError.ReadToEnd()
+
+    $exitcode = $process.ExitCode
+
+    if ($exitcode -ne 0) {
+        Throw "SQL CI exitcode was $exitcode. See console output for details."
+    }
 }
 
 
@@ -103,7 +108,7 @@ Write-Debug "tempServerName = $tempServerName"
 Write-Debug "tempDatabaseName = $tempDatabaseName"
 Write-Debug "authMethod = $authMethod"
 Write-Debug "username = $username"
-Write-Debug "password = $password"
+Write-Debug "password = *********"
 Write-Debug "useSqlDataGenerator = $useSqlDataGenerator"
 Write-Debug "autoSqlDataGenerator = $autoSqlDataGenerator"
 Write-Debug "runOnly = $runOnly"
@@ -119,7 +124,7 @@ Write-Debug "targetServerName = $targetServerName"
 Write-Debug "targetDatabaseName = $targetDatabaseName"
 Write-Debug "authMethodSync = $authMethodSync"
 Write-Debug "usernameSync = $usernameSync"
-Write-Debug "passwordSync = $passwordSync"
+Write-Debug "passwordSync = *********"
 
 # Shared arguments
 Write-Debug "additionalParams = $additionalParams"

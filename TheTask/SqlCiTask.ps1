@@ -6,6 +6,12 @@ param(
     [string]$dbFolder, 
     [string]$subFolderPath, 
     [string]$packageName,
+    [string]$tempServerTypeBuild, 
+    [string]$tempServerNameBuild,
+    [string]$tempDatabaseNameBuild,
+    [string]$authMethodBuild,
+    [string]$usernameBuild,
+    [string]$passwordBuild,
 
     # Test arguments
     
@@ -100,6 +106,12 @@ Write-Host "Entering script SqlCiTask.ps1"
 Write-Debug "dbFolder = $dbFolder"
 Write-Debug "subFolderPath = $subFolderPath" 
 Write-Debug "packageName = $packageName"
+Write-Debug "tempServerTypeBuild = $tempServerTypeBuild" 
+Write-Debug "tempServerNameBuild = $tempServerNameBuild"
+Write-Debug "tempDatabaseNameBuild = $tempDatabaseNameBuild"
+Write-Debug "authMethodBuild = $authMethodBuild"
+Write-Debug "usernameBuild = $usernameBuild"
+Write-Debug "passwordBuild = *********"
 
 # Test arguments 
 Write-Debug "packageId =$packageId"
@@ -160,6 +172,22 @@ switch($operation)
     $params += " --packageId=$packageName"
     $params += " --packageVersion=$nugetFullVersion"
     $params += " --outputFolder=$buildSourcesDirectory"
+    
+    if($tempServerTypeBuild -eq "sqlServer") 
+    {
+        $params += " --temporaryDatabaseServer=$tempServerNameBuild"
+
+        if($tempDatabaseNameBuild)
+        {
+            $params += " --temporaryDatabaseName=$tempDatabaseNameBuild"
+        }
+
+        if($authMethodBuild -eq "sqlServerAuth") 
+        {
+            $params += " --temporaryDatabaseUserName=$usernameBuild"
+            $params += " --temporaryDatabasePassword=$passwordBuild"
+        }
+    }
 
     if($additionalParams) {
        $params += " --additionalCompareArgs=$additionalParams"

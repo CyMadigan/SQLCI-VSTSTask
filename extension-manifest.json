@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "redgateSqlCi",
     "name": "Redgate SQL CI",
-    "version": "1.0.11",
+    "version": "1.0.14",
     "publisher": "redgatesoftware",
     "description": "Continuous integration for databases. Build, test, synchronize and publish your SQL Server databases using Redgate SQL CI.",
     "public": true,

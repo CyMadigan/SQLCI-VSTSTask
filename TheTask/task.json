@@ -12,7 +12,7 @@
     "version": {
         "Major": 1,
         "Minor": 0,
-        "Patch": 11
+        "Patch": 14
     },
     "demands": [
 
@@ -71,6 +71,65 @@
             "required": true,
             "helpMarkDown": "An ID for the package you want to build.",
             "visibleRule": "operation = Build"
+        },
+        {
+            "name": "tempServerTypeBuild",
+            "type": "pickList",
+            "label": "Temporary Server Type",
+            "defaultValue": "localDB",
+            "required": true,
+            "options": {
+                "localDB": "SQL LocalDB (recommended)",
+                "sqlServer": "SQL Server"
+            },
+			"helpMarkDown": "During the build step, SQL CI makes a copy of your database on a temporary server. By default, it uses LocalDB for this. If your database uses features that are not supported by LocalDB, such as Full-Text Search, you can use a temporary SQL Server database.",
+            "visibleRule": "operation = Build"
+        },
+        {
+            "name": "tempServerNameBuild",
+            "type": "string",
+            "label": "Server",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "tempServerTypeBuild = sqlServer"
+        },
+        {
+            "name": "tempDatabaseNameBuild",
+            "type": "string",
+            "label": "Database",
+            "defaultValue": "",
+            "required": false,
+            "visibleRule": "tempServerTypeBuild = sqlServer",
+            "helpMarkDown": "Leave this blank, and SQL CI will create a temporary database. You should only specify a database name here if you wish to use an existing database."
+        },
+        {
+            "name": "authMethodBuild",
+            "type": "pickList",
+            "label": "Authentication Method",
+            "defaultValue": "sqlServerAuth",
+            "required": true,
+            "options": {
+                "sqlServerAuth": "SQL Server authentication",
+                "windowsAuth": "Windows authentication"
+            },
+            "visibleRule": "tempServerTypeBuild = sqlServer"
+        },
+        {
+            "name": "usernameBuild",
+            "type": "string",
+            "label": "Username",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "authMethodBuild = sqlServerAuth"
+        },
+        {
+            "name": "passwordBuild",
+            "type": "string",
+            "label": "Password",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "authMethodBuild = sqlServerAuth",
+            "helpMarkDown": "Password should reference a secret variable defined on the Variables tab."
         },
 		
 		

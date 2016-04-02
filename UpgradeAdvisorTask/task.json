@@ -12,18 +12,14 @@
     "version": {
         "Major": 1,
         "Minor": 0,
-        "Patch": 0
+        "Patch": 1
     },
     "demands": [
 
     ],
     "minimumAgentVersion": "1.83.0",
     "groups": [
-		{
-            "name":"nuGetPackageVersionGroup",
-            "displayName":"NuGet Package Version",
-            "isExpanded":false
-        }
+
     ],
     "inputs": [
 		{
@@ -57,7 +53,7 @@
             "label": "Username",
             "defaultValue": "",
             "required": true,
-            "visibleRule": "authMethodSync = sqlServerAuth"
+            "visibleRule": "authMethod = sqlServerAuth"
         },
         {
             "name": "password",
@@ -65,7 +61,7 @@
             "label": "Password",
             "defaultValue": "",
             "required": true,
-            "visibleRule": "authMethodSync = sqlServerAuth",
+            "visibleRule": "authMethod = sqlServerAuth",
             "helpMarkDown": "Password should reference a secret variable defined on the Variables tab."
         },
 	],

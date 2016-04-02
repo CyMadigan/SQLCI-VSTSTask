@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 If (!$env:DLMAS_HOME)
 {
     Write-Host '** Error: DLM Automation Suite not installed. Exiting **'
-    Exit
+    Exit 1
 }
 
 $sqlCiDirectory            = $env:DLMAS_HOME + 'SQLCI\'

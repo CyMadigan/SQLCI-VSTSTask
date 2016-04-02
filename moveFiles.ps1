@@ -24,6 +24,34 @@ if (Test-Path $DocCommentsFile) {
 	Remove-Item $DocCommentsFile -Recurse
 }
 
+#We need 7Zip to compress MSUA to get under 20Mb limit :-(
+If (!$env:SevenZip_HOME)
+{
+	$env:SevenZip_HOME = join-path "$Env:ProgramFiles" "7-Zip"
+}
+
+if (!(Test-Path $env:SevenZip_HOME))
+{
+	Write-Host "** Error: Could not find 7-Zip at $env:SevenZip_HOME. Exiting **"
+    Exit 1
+}
+
+$sevenZipExe = "7z.exe"
+$sevenZipDll = "7z.dll"
+$sevenZipLicense = "License.txt"
+$sevenZipDirectory = '.\7Z'
+if(Test-Path $sevenZipDirectory)
+{
+	Remove-Item $sevenZipDirectory -recurse
+}
+
+New-Item $sevenZipDirectory -itemtype directory
+@($sevenZipExe, $sevenZipDll, $sevenZipLicense) | % {
+	$target = join-path $sevenZipDirectory $_
+	$source = join-path $env:SevenZip_HOME $_
+	Copy-Item $source $target
+}
+
 If (!$env:MSUA_HOME)
 {
 	$env:MSUA_HOME = join-path "$Env:ProgramFiles" "Microsoft SQL Server 2016 Upgrade Advisor"
@@ -36,11 +64,14 @@ if (!(Test-Path $env:MSUA_HOME))
 }
 
 $msuaDirectory = '.\UpgradeAdvisorTask\msua'
+$msuaZipFile = '.\UpgradeAdvisorTask\msua.7z'
 
-@($msuaDirectory) | % {
+@($msuaDirectory, $msuaZipFile) | % {
 	if (Test-Path $_) {
 		Remove-Item $_ -Recurse
 	}
 }
 
-Copy-Item $env:MSUA_HOME $msuaDirectory -recurse -force
+$sevenZipExePath = join-path $sevenZipDirectory $sevenZipExe
+set-alias sz  $sevenZipExePath
+sz a $msuaZipFile $env:MSUA_HOME

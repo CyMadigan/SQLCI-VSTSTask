@@ -1,0 +1,39 @@
+﻿{
+    "id": "C9227D18-D9AC-4358-B317-340353A943E8",
+    "name": "RedgateMSUA",
+    "friendlyName": "Redgate MS Upgrade Advisor",
+    "description": "Creates a report on forward compatibility as part of CI build so issues can be addressed early.",
+    "helpMarkDown": "[More Information](https://documentation.red-gate.com/display/SAP1/SQL+Automation+Pack+documentation)",
+    "category": "Build",
+    "visibility": [
+        "Build", "Release"
+    ],
+    "author": "Redgate Software",
+    "version": {
+        "Major": 1,
+        "Minor": 0,
+        "Patch": 0
+    },
+    "demands": [
+
+    ],
+    "minimumAgentVersion": "1.83.0",
+    "groups": [
+		{
+            "name":"nuGetPackageVersionGroup",
+            "displayName":"NuGet Package Version",
+            "isExpanded":false
+        }
+    ],
+    "inputs": [
+	
+	],
+    "instanceNameFormat": "Upgrade Advisor",
+    "execution": {
+        "PowerShell": {
+            "target": "$(currentDirectory)\\MSUA.ps1",
+            "argumentFormat": "",
+            "workingDirectory": "$(currentDirectory)"
+        }
+    }
+}

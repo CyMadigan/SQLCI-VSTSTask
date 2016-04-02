@@ -43,4 +43,4 @@ $msuaDirectory = '.\UpgradeAdvisorTask\msua'
 	}
 }
 
-Copy-Item $env:MSUA_HOME $msuaDirectory
+Copy-Item $env:MSUA_HOME $msuaDirectory -recurse -force

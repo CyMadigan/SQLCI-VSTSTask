@@ -39,7 +39,7 @@ if (!(Test-Path $env:SevenZip_HOME))
 $sevenZipExe = "7z.exe"
 $sevenZipDll = "7z.dll"
 $sevenZipLicense = "License.txt"
-$sevenZipDirectory = '.\7Z'
+$sevenZipDirectory = 'UpgradeAdvisorTask\7Z'
 if(Test-Path $sevenZipDirectory)
 {
 	Remove-Item $sevenZipDirectory -recurse
@@ -63,7 +63,7 @@ if (!(Test-Path $env:MSUA_HOME))
     Exit 1
 }
 
-$msuaDirectory = '.\UpgradeAdvisorTask\msua'
+$msuaDirectory = '.\UpgradeAdvisorTask\Microsoft SQL Server 2016 Upgrade Advisor'
 $msuaZipFile = '.\UpgradeAdvisorTask\msua.7z'
 
 @($msuaDirectory, $msuaZipFile) | % {
@@ -73,5 +73,5 @@ $msuaZipFile = '.\UpgradeAdvisorTask\msua.7z'
 }
 
 $sevenZipExePath = join-path $sevenZipDirectory $sevenZipExe
-set-alias sz  $sevenZipExePath
+set-alias sz $sevenZipExePath
 sz a $msuaZipFile $env:MSUA_HOME

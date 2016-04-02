@@ -3,7 +3,7 @@
     "id": "redgateSqlCi",
     "name": "Redgate SQL CI",
     "publisher": "redgatesoftware",
-    "version": "1.1.7",
+    "version": "1.1.11",
     "description": "Continuous integration for databases. Build, test, synchronize and publish your SQL Server databases using Redgate SQL CI.",
     "public": true,
     "icons": {
@@ -25,10 +25,6 @@
 		{   "path": "UpgradeAdvisorTask" },
         {   
 		    "path": "images",
-			"addressable": true
-		},
-		{   
-		    "path": "7Z",
 			"addressable": true
 		}
     ],

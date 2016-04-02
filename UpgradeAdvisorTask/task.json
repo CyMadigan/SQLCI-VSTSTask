@@ -26,9 +26,50 @@
         }
     ],
     "inputs": [
-	
+		{
+            "name": "server",
+            "type": "string",
+            "label": "Server",
+            "defaultValue": "",
+            "required": true
+        },
+        {
+            "name": "database",
+            "type": "string",
+            "label": "Database",
+            "defaultValue": "",
+            "required": true
+        },
+        {
+            "name": "authMethod",
+            "type": "pickList",
+            "label": "Authentication Method",
+            "defaultValue": "sqlServerAuth",
+            "required": true,
+            "options": {
+                "sqlServerAuth": "SQL Server authentication",
+                "windowsAuth": "Windows authentication"
+            }
+        },
+        {
+            "name": "username",
+            "type": "string",
+            "label": "Username",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "authMethodSync = sqlServerAuth"
+        },
+        {
+            "name": "password",
+            "type": "string",
+            "label": "Password",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "authMethodSync = sqlServerAuth",
+            "helpMarkDown": "Password should reference a secret variable defined on the Variables tab."
+        },
 	],
-    "instanceNameFormat": "Upgrade Advisor",
+    "instanceNameFormat": "Upgrade Advisor running on $(server)/$(database)",
     "execution": {
         "PowerShell": {
             "target": "$(currentDirectory)\\MSUA.ps1",

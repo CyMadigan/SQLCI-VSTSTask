@@ -6,20 +6,26 @@ If (!$env:DLMAS_HOME)
     Exit 1
 }
 
-$sqlCiDirectory            = $env:DLMAS_HOME + 'SQLCI\'
-$sqlCompareDirectory       = $env:DLMAS_HOME + 'SC\'
+$sqlCiDirectory = join-path "$env:DLMAS_HOME" "SQLCI"
+$sqlCompareDirectory = join-path "$env:DLMAS_HOME" "SC"
+$sqlDataGeneratorDirectory = join-path "$env:DLMAS_HOME" "SDG"
+$targetTheTaskPath = join-path "$PsScriptRoot" "TheTask"
+$targetSCPath = join-path "$targetTheTaskPath" "SC"
+$targetSqlCiPath = join-path "$targetTheTaskPath" "sqlCI"
+$targetSDGPath = join-path "$targetTheTaskPath" "SDG"
 
-@('.\TheTask\SC', '.\TheTask\SDG', '.\TheTask\sqlCI') | % {
-	if (Test-Path $_) {
-		Remove-Item $_ -Recurse
-	}
+@($targetSCPath, $targetSqlCiPath, $targetSDGPath) | % {
+    if(Test-Path "$_") {
+        Remove-Item "$_" -Recurse
+    }
 }
 
-Copy-Item $sqlCiDirectory            .\TheTask\sqlCI  -recurse -force
-Copy-Item $sqlCompareDirectory       .\TheTask\SC     -recurse -force
+Copy-Item "$sqlCiDirectory" "$targetSqlCiPath"  -recurse -force
+Copy-Item "$sqlCompareDirectory" "$targetSCPath" -recurse -force
+Copy-Item "$sqlDataGeneratorDirectory" "$targetSDGPath" -recurse -force
 
 # To get around bug with VSO Marketplace that you can't have both an .EXT and an .ext 
-$DocCommentsFile = '.\TheTask\sqlCI\sqlCI.XML'
+$DocCommentsFile = join-path "$targetSqlCiPath" "sqlCI.XML"
 if (Test-Path $DocCommentsFile) {
 	Remove-Item $DocCommentsFile -Recurse
 }

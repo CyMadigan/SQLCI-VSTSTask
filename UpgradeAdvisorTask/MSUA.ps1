@@ -3,7 +3,8 @@ param(
     [string]$database,
     [string]$authMethod,
     [string]$username,
-    [string]$password
+    [string]$password,
+	[string]$outputPath
 )
 
 #Unzip
@@ -28,6 +29,8 @@ else
 }
 Write-host "Running MSUA with connection string = $connectionString"
 Write-host "Testing 'upgrade' scenario"
-msua /FolderPath:"$Env:SYSTEM_DEFAULTWORKINGDIRECTORY" /Scenario:Upgrade /ConnectionStrings:"$connectionString"
+msua /FolderPath:"$outputPath" /Scenario:Upgrade /ConnectionStrings:"$connectionString"
+$exitcode = $LastExitCode
 Write-host "Testing 'stretch DB' scenario"
-msua /FolderPath:"$Env:SYSTEM_DEFAULTWORKINGDIRECTORY" /Scenario:StretchDB /ConnectionStrings:"$connectionString"
+msua /FolderPath:"$outputPath" /Scenario:StretchDB /ConnectionStrings:"$connectionString"
+$exitcode = $exitcode + $LastExitCode

@@ -12,7 +12,7 @@
     "version": {
         "Major": 1,
         "Minor": 0,
-        "Patch": 5
+        "Patch": 7
     },
     "demands": [
 
@@ -63,6 +63,13 @@
             "required": true,
             "visibleRule": "authMethod = sqlServerAuth",
             "helpMarkDown": "Password should reference a secret variable defined on the Variables tab."
+        },
+		{
+            "name": "outputPath",
+            "type": "string",
+            "label": "output directory",
+            "defaultValue": "$(build.artifactstagingdirectory)",
+            "required": true
         },
 	],
     "instanceNameFormat": "Upgrade Advisor running on $(server)/$(database)",

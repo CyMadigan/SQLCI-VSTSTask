@@ -10,7 +10,6 @@ param(
 Write-host "Extracting MSUA"
 $msuaZipFile = '.\msua.7z'
 $sevenZipExe = join-path '.\7Z' "7z.exe"
-Write-host $sevenZipExe
 set-alias sz $sevenZipExe
 sz x $msuaZipFile | Out-Null
 $msuaDirectory = '.\Microsoft SQL Server 2016 Upgrade Advisor'

@@ -9,17 +9,17 @@ If (!$env:DLMAS_HOME)
 $sqlCiDirectory            = $env:DLMAS_HOME + 'SQLCI\'
 $sqlCompareDirectory       = $env:DLMAS_HOME + 'SC\'
 
-@('.\TheTask\SC', '.\TheTask\SDG', '.\TheTask\sqlCI') | % {
+@('.\SQLCITask\SC', '.\SQLCITask\SDG', '.\SQLCITask\sqlCI') | % {
 	if (Test-Path $_) {
 		Remove-Item $_ -Recurse
 	}
 }
 
-Copy-Item $sqlCiDirectory            .\TheTask\sqlCI  -recurse -force
-Copy-Item $sqlCompareDirectory       .\TheTask\SC     -recurse -force
+Copy-Item $sqlCiDirectory            .\SQLCITask\sqlCI  -recurse -force
+Copy-Item $sqlCompareDirectory       .\SQLCITask\SC     -recurse -force
 
 # To get around bug with VSO Marketplace that you can't have both an .EXT and an .ext 
-$DocCommentsFile = '.\TheTask\sqlCI\sqlCI.XML'
+$DocCommentsFile = '.\SQLCITask\sqlCI\sqlCI.XML'
 if (Test-Path $DocCommentsFile) {
 	Remove-Item $DocCommentsFile -Recurse
 }

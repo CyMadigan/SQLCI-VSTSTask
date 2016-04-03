@@ -21,7 +21,7 @@
 		"advisor"
     ],
     "files": [
-        {   "path": "TheTask" },
+        {   "path": "SQLCITask" },
 		{   "path": "UpgradeAdvisorTask" },
         {   
 		    "path": "images",
@@ -56,7 +56,7 @@
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "TheTask"
+                "name": "SQLCITask"
             }
         },
 		{

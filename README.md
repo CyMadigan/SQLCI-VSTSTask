@@ -10,8 +10,8 @@ There are 2 tasks:
 - extension-manifest.json defines most of the metadata about the plugin.
 - images\ is various images shown in the marketplace. These are referenced by extensions-manifest.json.
 - overview.md is a markdown file. This is the text shown in the marketplace.
-- TheTask\task.json defines the SQL CI task.
-- TheTask\SqlCiTask.ps1 is the PowerShell run by the task.
+- SQLCITask\task.json defines the SQL CI task.
+- SQLCITask\SqlCiTask.ps1 is the PowerShell run by the task.
 
 ## Development
 

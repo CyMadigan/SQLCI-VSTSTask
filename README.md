@@ -1,10 +1,10 @@
 # SQLCI-VSTSTask
 
-This is the SQL CI task for Visual Studio Team Services (VSTS).
+This is the DLM Automation Build task for Visual Studio Team Services (VSTS).
 
 ## Tasks
 
-There is one task. Choose an action corresponding to the four actions of SQL CI.
+There is one task. Choose an action corresponding to the 'Build', 'Test', 'Sync' or 'Publish' actions of DLM Automation.
 
 ## Structure
 - extension-manifest.json defines most of the metadata about the plugin.

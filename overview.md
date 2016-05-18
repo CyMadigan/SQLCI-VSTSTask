@@ -1,8 +1,8 @@
-﻿# Redgate SQL CI
+﻿# Redgate DLM Automation Build
 
 [Redgate Software](http://www.red-gate.com/) develop database lifecycle management tools ([DLM](http://www.red-gate.com/dlm)) that help your organization include databases alongside applications in agile processes.
 
-Redgate SQL CI is part of the [DLM Automation Suite](https://www.red-gate.com/products/dlm/dlm-automation-suite/), a suite of tools that let you apply continuous integration and release management processes to Microsoft SQL Server databases. 
+Redgate [DLM Automation](http://www.red-gate.com/products/dlm/dlm-automation/) is a tool that lets you apply continuous integration and release management processes to Microsoft SQL Server databases. 
 
 Using this extension you can build, test, synchronize and publish SQL Server databases, as part of your application build and release process. 
 

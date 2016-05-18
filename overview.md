@@ -2,7 +2,7 @@
 
 [Redgate Software](http://www.red-gate.com/) develop database lifecycle management tools ([DLM](http://www.red-gate.com/dlm)) that help your organization include databases alongside applications in agile processes.
 
-Redgate [DLM Automation](http://www.red-gate.com/products/dlm/dlm-automation/) is a tool that lets you apply continuous integration and release management processes to Microsoft SQL Server databases. 
+Redgate [DLM Automation](http://www.red-gate.com/products/dlm/dlm-automation/) (available as part of the [SQL Toolbelt](http://www.red-gate.com/products/sql-development/sql-toolbelt/)) is a tool that lets you apply continuous integration and release management processes to Microsoft SQL Server databases.
 
 Using this extension you can build, test, synchronize and publish SQL Server databases, as part of your application build and release process. 
 

@@ -1,7 +1,7 @@
 ﻿{
     "id": "7654CF4A-2FA1-4226-A21B-6EE07F2BA112",
     "name": "RedgateSqlCiBuild",
-    "friendlyName": "Redgate DLM Automation",
+    "friendlyName": "Redgate DLM Automation Build",
     "description": "Build, test, sync and publish a DB with DLM Automation",
     "helpMarkDown": "[More Information](http://documentation.red-gate.com/display/DAS/DLM+Automation+Suite)",
     "category": "Build",

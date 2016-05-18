@@ -17,8 +17,8 @@
         "Red Gate",
         "sqlci",
         "deployment",
-		"DLM",
-		"Automation"
+        "DLM",
+        "Automation"
     ],
     "files": [
         {   "path": "TheTask" },

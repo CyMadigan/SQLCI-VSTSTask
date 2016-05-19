@@ -4,7 +4,7 @@
     "name": "DLM Automation Build",
     "version": "1.0.16",
     "publisher": "redgatesoftware",
-    "description": "Continuous integration for databases. Build, test, synchronize and publish your SQL Server databases using Redgate DLM Automation.",
+    "description": "Build, test, sync and publish databases with DLM Automation.",
     "public": true,
     "icons": {
         "default": "images/redgatesqlci-logo.png"

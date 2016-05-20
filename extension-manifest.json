@@ -1,10 +1,10 @@
 {
     "manifestVersion": 1,
     "id": "redgateSqlCi",
-    "name": "Redgate SQL CI",
-    "version": "1.0.15",
+    "name": "DLM Automation Build",
+    "version": "1.0.16",
     "publisher": "redgatesoftware",
-    "description": "Continuous integration for databases. Build, test, synchronize and publish your SQL Server databases using Redgate SQL CI.",
+    "description": "Build, test, sync and publish databases with DLM Automation.",
     "public": true,
     "icons": {
         "default": "images/redgatesqlci-logo.png"
@@ -16,11 +16,13 @@
         "Redgate",
         "Red Gate",
         "sqlci",
-        "deployment"
+        "deployment",
+        "DLM",
+        "Automation"
     ],
     "files": [
         {   "path": "TheTask" },
-        {   
+        {
 		    "path": "images",
 			"addressable": true
 		}
@@ -30,10 +32,10 @@
     ],
     "content": {
         "details": {
-            "path": "overview.md"   
+            "path": "overview.md"
         }
     },
-    "screenshots": [          
+    "screenshots": [
     ],
     "links": {
         "home":       { "uri": "https://www.red-gate.com/" },

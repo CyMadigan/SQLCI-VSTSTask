@@ -1,16 +1,16 @@
 {
-  "name": "SQLCI-VSOTask",
+  "name": "SQLCI-VSTSTask",
   "dependencies": {
     "vset": "^0.4.20"
   },
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/red-gate/SQLCI-VSOTask.git"
+    "url": "https://github.com/red-gate/SQLCI-VSTSTask.git"
   },
   "author": "Redgate Software Ltd",
   "bugs": {
-    "url": "https://github.com/red-gate/SQLCI-VSOTask/issues"
+    "url": "https://github.com/red-gate/SQLCI-VSTSTask/issues"
   },
-  "homepage": "https://github.com/red-gate/SQLCI-VSOTask"
+  "homepage": "https://github.com/red-gate/SQLCI-VSTSTask"
 }

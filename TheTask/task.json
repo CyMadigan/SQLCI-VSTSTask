@@ -1,9 +1,9 @@
 ﻿{
     "id": "7654CF4A-2FA1-4226-A21B-6EE07F2BA112",
     "name": "RedgateSqlCiBuild",
-    "friendlyName": "Redgate SQL CI",
-    "description": "Build, test, sync and publish a DB with SQL CI",
-    "helpMarkDown": "[More Information](https://documentation.red-gate.com/display/SAP1/SQL+Automation+Pack+documentation)",
+    "friendlyName": "Redgate DLM Automation Build",
+    "description": "Build, test, sync and publish a DB with DLM Automation",
+    "helpMarkDown": "[More Information](http://documentation.red-gate.com/display/DAS/DLM+Automation+Suite)",
     "category": "Build",
     "visibility": [
         "Build", "Release"
@@ -38,7 +38,7 @@
                 "Publish":  "Publish a database package",
                 "Sync":  "Sync a database package",
             },
-            "helpMarkDown": "Specify the SQL CI operation you want to perform. Build, test, publish or sync."
+            "helpMarkDown": "Specify the DLM Automation operation you want to perform. Build, test, publish or sync."
         },
 		
         {
@@ -82,7 +82,7 @@
                 "localDB": "SQL LocalDB (recommended)",
                 "sqlServer": "SQL Server"
             },
-			"helpMarkDown": "During the build step, SQL CI makes a copy of your database on a temporary server. By default, it uses LocalDB for this. If your database uses features that are not supported by LocalDB, such as Full-Text Search, you can use a temporary SQL Server database.",
+			"helpMarkDown": "During the build step, DLM Automation makes a copy of your database on a temporary server. By default, it uses LocalDB for this. If your database uses features that are not supported by LocalDB, such as Full-Text Search, you can use a temporary SQL Server database.",
             "visibleRule": "operation = Build"
         },
         {
@@ -100,7 +100,7 @@
             "defaultValue": "",
             "required": false,
             "visibleRule": "tempServerTypeBuild = sqlServer",
-            "helpMarkDown": "Leave this blank, and SQL CI will create a temporary database. You should only specify a database name here if you wish to use an existing database."
+            "helpMarkDown": "Leave this blank, and DLM Automation will create a temporary database. You should only specify a database name here if you wish to use an existing database."
         },
         {
             "name": "authMethodBuild",
@@ -170,7 +170,7 @@
             "defaultValue": "",
             "required": false,
             "visibleRule": "tempServerType = sqlServer",
-            "helpMarkDown": "If you leave this blank, SQL CI will create a new database with a unique name, and delete it after the tests have run. If you want to use an Azure SQL Database as a test database, you must create a database and give the name here. SQL CI cannot create a temporary database in Azure SQL Database."
+            "helpMarkDown": "If you leave this blank, DLM Automation will create a new database with a unique name, and delete it after the tests have run. If you want to use an Azure SQL Database as a test database, you must create a database and give the name here. DLM Automation cannot create a temporary database in Azure SQL Database."
         },
         {
             "name": "authMethod",
@@ -277,7 +277,7 @@
             "label": "Package ID",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "The ID of the package you want to use to update the target database. It must be a package built by SQL CI.",
+            "helpMarkDown": "The ID of the package you want to use to update the target database. It must be a package built by DLM Automation.",
             "visibleRule": "operation = Sync"
         },
         {

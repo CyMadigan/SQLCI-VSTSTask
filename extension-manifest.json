@@ -4,6 +4,7 @@
     "name": "DLM Automation Build",
     "version": "1.0.16",
     "publisher": "redgatesoftware",
+    "targets": [{"id": "Microsoft.VisualStudio.Services"}],
     "description": "Build, test, sync and publish databases with DLM Automation.",
     "public": true,
     "icons": {

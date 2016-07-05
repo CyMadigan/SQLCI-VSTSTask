@@ -145,7 +145,7 @@ Write-Debug "nugetPackageVersionUseBuildNumber = $nugetPackageVersionUseBuildNum
 
 
 # This will be empty if it's a Release.
-$buildSourcesDirectory = Get-TaskVariable -Context $distributedTaskContext -Name "Build.SourcesDirectory"
+$buildSourcesDirectory = $env:BUILD_SOURCESDIRECTORY
 
 # Build version number
 

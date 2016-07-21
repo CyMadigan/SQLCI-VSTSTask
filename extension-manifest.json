@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "redgateSqlCi",
     "name": "DLM Automation Build",
-    "version": "1.0.17",
+    "version": "1.0.18",
     "publisher": "redgatesoftware",
     "targets": [{"id": "Microsoft.VisualStudio.Services"}],
     "description": "Build, test, sync and publish databases with DLM Automation.",

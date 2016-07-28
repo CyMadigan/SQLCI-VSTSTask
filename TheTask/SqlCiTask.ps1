@@ -99,6 +99,11 @@ function RunSqlCi($sqlCiArgs){
     }
 }
 
+function AppendArgument($arg, $name, $value){
+    $escapedValue = $value -replace '"','\"'
+    return "$arg /$name=`"$escapedValue`""
+}
+
 
 Write-Host "Entering script SqlCiTask.ps1"
 
@@ -145,7 +150,7 @@ Write-Debug "nugetPackageVersionUseBuildNumber = $nugetPackageVersionUseBuildNum
 
 
 # This will be empty if it's a Release.
-$buildSourcesDirectory = $env:BUILD_SOURCESDIRECTORY
+$buildSourcesDirectory = "C:\Temp" #$env:BUILD_SOURCESDIRECTORY
 
 # Build version number
 
@@ -163,34 +168,34 @@ switch($operation)
     [string]$params = 'BUILD'
 
     if($dbFolder -eq 'SubFolder') {
-        $params += " --scriptsFolder=$subFolderPath"
+        $params = AppendArgument $params 'scriptsFolder' $subFolderPath
     }
     else{
-        $params += " --scriptsFolder=.\"
+        $params = AppendArgument $params 'scriptsFolder' '.\'
     }
 
-    $params += " --packageId=$packageName"
-    $params += " --packageVersion=$nugetFullVersion"
-    $params += " --outputFolder=$buildSourcesDirectory"
+    $params = AppendArgument $params 'packageId' $packageName
+    $params = AppendArgument $params 'packageVersion' $nugetFullVersion
+    $params = AppendArgument $params 'outputFolder' $buildSourcesDirectory
     
     if($tempServerTypeBuild -eq "sqlServer") 
     {
-        $params += " --temporaryDatabaseServer=$tempServerNameBuild"
+        $params = AppendArgument $params 'temporaryDatabaseServer' $tempServerNameBuild
 
         if($tempDatabaseNameBuild)
         {
-            $params += " --temporaryDatabaseName=$tempDatabaseNameBuild"
+            $params = AppendArgument $params 'temporaryDatabaseName' $tempDatabaseNameBuild
         }
 
         if($authMethodBuild -eq "sqlServerAuth") 
         {
-            $params += " --temporaryDatabaseUserName=$usernameBuild"
-            $params += " --temporaryDatabasePassword=$passwordBuild"
+            $params = AppendArgument $params 'temporaryDatabaseUserName' $usernameBuild
+            $params = AppendArgument $params 'temporaryDatabasePassword' $passwordBuild
         }
     }
 
     if($additionalParams) {
-       $params += " --additionalCompareArgs=$additionalParams"
+       $params = AppendArgument $params 'additionalCompareArgs' $additionalParams
     }
   }
   "Test"{
@@ -198,11 +203,13 @@ switch($operation)
 
     # If this is a a VSO Build Definition, we get the package from the buildsourcesdirctory 
     if ($Env:AGENT_JOBNAME -eq 'Build')     {
-        $params += " --outputFolder=$buildSourcesDirectory --package=$buildSourcesDirectory\$packageId" + ".$nugetFullVersion.nupkg"
+        $params = AppendArgument $params 'outputFolder' $buildSourcesDirectory
+        $params = AppendArgument $params 'package' "$buildSourcesDirectory\$packageId.$nugetFullVersion.nupkg"
     }
     elseif ($Env:AGENT_JOBNAME -eq 'Release') {
         # We're in a VSO Release definition. So feed it from the packageFile directly, and output tests to SYSTEM_DEFAULTWORKINGDIRECTORY
-        $params += " --outputFolder=$Env:SYSTEM_DEFAULTWORKINGDIRECTORY --package=$packageId"
+        $params = AppendArgument $params 'outputFolder' $Env:SYSTEM_DEFAULTWORKINGDIRECTORY
+        $params = AppendArgument $params 'package' $packageId
     }
     else {
         Write-Error "Unrecognized AGENT_JOBNAME: $Env:AGENT_JOBNAME"
@@ -210,17 +217,17 @@ switch($operation)
 
     if($tempServerType -eq "sqlServer") 
     {
-        $params += " --temporaryDatabaseServer=$tempServerName"
+        $params = AppendArgument $params 'temporaryDatabaseServer' $tempServerName
 
         if($tempDatabaseName)
         {
-            $params += " --temporaryDatabaseName=$tempDatabaseName"
+            $params = AppendArgument $params 'temporaryDatabaseName' $tempDatabaseName
         }
 
         if($authMethod -eq "sqlServerAuth") 
         {
-            $params += " --temporaryDatabaseUserName=$username"
-            $params += " --temporaryDatabasePassword=$password"
+            $params = AppendArgument $params 'temporaryDatabaseUserName' $username
+            $params = AppendArgument $params 'temporaryDatabasePassword' $password
         }
     }
 
@@ -233,44 +240,44 @@ switch($operation)
 
         if($autoSqlDataGenerator -eq 'true') 
         {
-            $params += " --sqlDataGenerator="
+            $params = AppendArgument $params 'sqlDataGenerator' ""
         }
         else
         {
-            $params += " --sqlDataGenerator=$sqlDataGeneratorFile"
+            $params = AppendArgument $params 'sqlDataGenerator' $sqlDataGeneratorFile
         }
     }
 
     if($runOnly) 
     {
-        $params += " --runOnly=$runOnly"
+        $params = AppendArgument $params 'runOnly' $runOnly
     }
   }
   "Sync"{
     [string]$params = 'SYNC'
     
     if($Env:AGENT_JOBNAME -eq 'Build')     {   # This is a a VSO Build Definition, we get the package from the buildsourcesdirctory 
-        $params += " --package=$buildSourcesDirectory\$packageIdSync" + ".$nugetFullVersion.nupkg"
+        $params = AppendArgument $params 'package' "$buildSourcesDirectory\$packageIdSync.$nugetFullVersion.nupkg"
     }
     elseif($Env:AGENT_JOBNAME -eq 'Release') {
         # We're in a VSO Release definition. So feed it from the packageFile directly.
-        $params += " --package=$packageIdSync"
+        $params = AppendArgument $params 'package' $packageIdSync
     }
     else    {
         Write-Error "Unrecognized AGENT_JOBNAME: $Env:AGENT_JOBNAME"
     }
 
-    $params += " --databaseServer=$targetServerName"
-    $params += " --databaseName=$targetDatabaseName"
+    $params = AppendArgument $params 'databaseServer' $targetServerName
+    $params = AppendArgument $params 'databaseName' $targetDatabaseName
 
     if($authMethod -eq "sqlServerAuth") 
     {
-        $params += " --databaseUserName=$usernameSync"
-        $params += " --databasePassword=$passwordSync"
+        $params = AppendArgument $params 'databaseUserName' $usernameSync
+        $params = AppendArgument $params 'databasePassword' $passwordSync
     }
 
     if($additionalParams) {
-        $params += " --additionalCompareArgs=$additionalParams"
+        $params = AppendArgument $params 'additionalCompareArgs' $additionalParams
     }
         
   }
@@ -278,21 +285,21 @@ switch($operation)
     [string]$params = 'Publish'
     
     if($Env:AGENT_JOBNAME -eq 'Build')     {   # This is a a VSO Build Definition, we get the package from the buildsourcesdirctory 
-        $params += " --package=$buildSourcesDirectory\$packageIdPublish" + ".$nugetFullVersion.nupkg"
+        $params = AppendArgument $params 'package' "$buildSourcesDirectory\$packageIdPublish.$nugetFullVersion.nupkg"
     }
     elseif($Env:AGENT_JOBNAME -eq 'Release') {
         # We're in a VSO Release definition. So feed it from the packageFile directly.
-        $params += " --package=$packageIdPublish"
+        $params = AppendArgument $params 'package' $packageIdPublish
     }
     else  {
         Write-Error "Unrecognized AGENT_JOBNAME: $Env:AGENT_JOBNAME"
     }
     
-    $params += " --nugetFeedUrl=$nugetFeedUrl"
+    $params = AppendArgument $params 'nugetFeedUrl=$nugetFeedUrl'
 
     if($nugetFeedApiKey)
     {
-        $params += " --nugetFeedApiKey=$nugetFeedApiKey"
+        $params = AppendArgument $params 'nugetFeedApiKey' $nugetFeedApiKey
     }
   }
   default:{
